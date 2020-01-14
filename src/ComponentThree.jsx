@@ -1,28 +1,21 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 
 import { AuthContext } from './contexts/AuthContext';
 import { LangContext } from './contexts/LangContext';
 
-class ComponentThree extends Component {
-    static contextType = AuthContext;
+function ComponentThree(props) {
+    const { lang } = useContext(LangContext);
+    const { spareProps, userType, toggleLogin } = useContext(AuthContext);
 
-    render() {
-        const { spareProps, userType, handleLogin } = this.context;
-
-        return (
-            <LangContext.Consumer>
-                {value => (
-                    <>
-                        <h1>Page 3</h1>
-                        <p>SpareProps: {spareProps}</p>
-                        <p>UserType: {userType}</p>
-                        <p>Language: {value.lang}</p>
-                        <button onClick={handleLogin}>Login</button>
-                    </>
-                )}
-            </LangContext.Consumer>
-        );
-    }
+    return (
+        <>
+            <h1>Page 3</h1>
+            <p>SpareProps: {spareProps}</p>
+            <p>UserType: {userType}</p>
+            <p>Language: {lang}</p>
+            <button onClick={toggleLogin}>Login</button>
+        </>
+    );
 }
 
 export default ComponentThree;

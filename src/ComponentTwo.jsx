@@ -1,13 +1,13 @@
 import React from 'react';
 import ComponentThree from './ComponentThree';
 
-const ComponentTwo = () => {
+function ComponentTwo(props) {
     return (
         <>
-            <h1>Page 2 with Page 2 embedded</h1>
+            <h1>Page 2 with Page 3 embedded</h1>
             <ComponentThree />
         </>
     );
-};
+}
 
 export default ComponentTwo;

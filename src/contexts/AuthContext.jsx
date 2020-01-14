@@ -1,37 +1,24 @@
-import React, { Component, createContext } from 'react';
+import React, { createContext, useState } from 'react';
+import useToggle from '../hooks/useToggle';
 
 export const AuthContext = createContext();
 
-export class AuthProvider extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoggedin: true,
-            userType: 'admin'
-        };
-        this.handleLogin = this.handleLogin.bind(this);
-    }
+export function AuthProvider(props) {
+    const [isLoggedin, toggleLogin] = useToggle(true);
+    const [userType, setUserType] = useState('administrator');
 
-    handleLogin() {
-        // this.setState({ isLoggedin: !this.state.isLoggedin });
-        this.setState(prevState => ({
-            isLoggedin: !prevState.isLoggedin
-        }));
-    }
-
-    render() {
-        return (
-            <AuthContext.Provider
-                value={{
-                    ...this.state,
-                    spareProps: 'hi!',
-                    handleLogin: this.handleLogin
-                }}
-            >
-                {this.props.children}
-            </AuthContext.Provider>
-        );
-    }
+    return (
+        <AuthContext.Provider
+            value={{
+                isLoggedin,
+                userType,
+                spareProps: 'hi!',
+                toggleLogin
+            }}
+        >
+            {props.children}
+        </AuthContext.Provider>
+    );
 }
 
 export default AuthProvider;
